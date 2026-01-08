@@ -1,0 +1,15 @@
+{
+  "name": "@infinity-xos/contracts",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "generate-hash": "tsx generate-hash.ts",
+    "generate-client": "openapi-typescript openapi.yaml -o ../typed-client/src/schema.ts",
+    "validate": "swagger-cli validate openapi.yaml"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "openapi-typescript": "^6.7.3",
+    "@apidevtools/swagger-cli": "^4.0.4"
+  }
+}
