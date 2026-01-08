@@ -20,17 +20,23 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy built app
-COPY --from=builder /app/apps/api/dist ./dist
-COPY --from=builder /app/apps/api/package.json ./
+# Copy package files from root for production install
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/package-lock.json ./package-lock.json
+COPY --from=builder /app/turbo.json ./turbo.json
+
+# Copy built API app
+COPY --from=builder /app/apps/api ./apps/api
+
+# Copy contracts package
 COPY --from=builder /app/packages/contracts ./packages/contracts
 
 # Install production dependencies only
-RUN npm ci --production
+RUN npm ci --production --workspace=@infinity-xos/api
 
 # Run as non-root
 USER node
 
 EXPOSE 8080
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "apps/api/dist/index.js"]
