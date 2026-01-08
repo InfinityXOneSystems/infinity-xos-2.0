@@ -3,7 +3,7 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copy root package files
-COPY package.json turbo.json ./
+COPY package.json package-lock.json turbo.json ./
 COPY packages ./packages
 
 # Copy API app
