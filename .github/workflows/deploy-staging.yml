@@ -32,6 +32,15 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
       
+      - name: Ensure Artifact Registry repository exists
+        run: |
+          gcloud artifacts repositories describe infinity-xos \
+            --location=${{ env.GCP_REGION }} 2>/dev/null || \
+          gcloud artifacts repositories create infinity-xos \
+            --repository-format=docker \
+            --location=${{ env.GCP_REGION }} \
+            --description="Infinity XOS container images"
+      
       - name: Configure Docker for GCR
         run: |
           gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev
@@ -100,6 +109,15 @@ jobs:
       
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+      
+      - name: Ensure Artifact Registry repository exists
+        run: |
+          gcloud artifacts repositories describe infinity-xos \
+            --location=${{ env.GCP_REGION }} 2>/dev/null || \
+          gcloud artifacts repositories create infinity-xos \
+            --repository-format=docker \
+            --location=${{ env.GCP_REGION }} \
+            --description="Infinity XOS container images"
       
       - name: Create Dockerfile for web
         run: |
