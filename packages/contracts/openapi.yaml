@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Infinity XOS API
+  version: 2.0.0
+  description: Canonical API contract for Infinity XOS
+  contact:
+    name: Infinity X One Systems
+    url: https://infinityxai.com
+
+servers:
+  - url: https://api.infinityxai.com
+    description: Production
+  - url: https://api-staging.infinityxai.com
+    description: Staging
+
+paths:
+  /healthz:
+    get:
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /readyz:
+    get:
+      summary: Readiness check
+      operationId: readinessCheck
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ready
+
+  /version:
+    get:
+      summary: Get version info
+      operationId: getVersion
+      responses:
+        '200':
+          description: Version information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: "2.0.0"
+                  contract_hash:
+                    type: string
+                    example: "abc123..."
+                  backend_sha:
+                    type: string
+                    example: "def456..."
+                  deployed_at:
+                    type: string
+                    format: date-time
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+        code:
+          type: string
