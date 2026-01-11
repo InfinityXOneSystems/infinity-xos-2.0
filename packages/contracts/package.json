@@ -5,11 +5,14 @@
   "scripts": {
     "generate-hash": "tsx generate-hash.ts",
     "generate-client": "openapi-typescript openapi.yaml -o ../typed-client/src/schema.ts",
-    "validate": "swagger-cli validate openapi.yaml"
+    "validate": "redocly lint openapi.yaml"
   },
   "devDependencies": {
-    "tsx": "^4.7.0",
-    "openapi-typescript": "^6.7.3",
-    "@apidevtools/swagger-cli": "^4.0.4"
+    "@redocly/cli": "^2.14.3",
+    "openapi-typescript": "^7.9.1",
+    "tsx": "^4.21.0"
+  },
+  "dependencies": {
+    "yaml": "^2.8.2"
   }
 }
